@@ -12,6 +12,18 @@ type StreamConfig struct {
 
 	// Pipeline is the AI pipeline capability name (e.g., "transcriber").
 	Pipeline string
+
+	// EnableVideoIngress controls whether the gateway should accept video input
+	// for the session. Defaults to true if nil.
+	EnableVideoIngress *bool
+
+	// EnableVideoEgress controls whether the gateway should produce video output
+	// for the session. Defaults to true if nil.
+	EnableVideoEgress *bool
+
+	// EnableDataOutput controls whether the gateway should produce data output
+	// (e.g. transcripts). Defaults to true if nil.
+	EnableDataOutput *bool
 }
 
 // StreamSession represents an active AI gateway transcription session.

@@ -70,9 +70,26 @@ func StartSession(ctx context.Context, cfg StreamConfig, streamName string) (*St
 		base + "/ai/stream/start",
 	}
 
+	enableVideoIngress := true
+	if cfg.EnableVideoIngress != nil {
+		enableVideoIngress = *cfg.EnableVideoIngress
+	}
+	enableVideoEgress := true
+	if cfg.EnableVideoEgress != nil {
+		enableVideoEgress = *cfg.EnableVideoEgress
+	}
+	enableDataOutput := true
+	if cfg.EnableDataOutput != nil {
+		enableDataOutput = *cfg.EnableDataOutput
+	}
+
 	env := GatewayEnvelope{
-		Request:        "{}",
-		ParametersJSON: mustJSON(StreamStartOptions{EnableVideoIngress: true, EnableVideoEgress: true, EnableDataOutput: true}),
+		Request: "{}",
+		ParametersJSON: mustJSON(StreamStartOptions{
+			EnableVideoIngress: enableVideoIngress,
+			EnableVideoEgress:  enableVideoEgress,
+			EnableDataOutput:   enableDataOutput,
+		}),
 		Capability:     cfg.Pipeline,
 		TimeoutSeconds: DefaultStreamTimeout,
 	}
